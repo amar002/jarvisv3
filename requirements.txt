@@ -1,0 +1,7 @@
+streamlit
+openai==0.28.0
+numpy
+jsonschema
+requests
+streamlit
+google-generativeai
