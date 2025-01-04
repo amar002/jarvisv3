@@ -9,7 +9,12 @@ def theme_picker_flow():
     if "goals_data" not in st.session_state:
         st.session_state.goals_data = []
 
-    # Form to add the first goal or additional goals
+    # Add another goal button
+    if st.session_state.goals_data:
+        if st.button("Add Another Goal"):
+            st.experimental_set_query_params(reload=True)  # Reload the form for adding another goal
+
+    # Form to add goals
     with st.form(key=f"goal_form_{len(st.session_state.goals_data)}"):
         selected_theme = st.selectbox("Choose your theme:", themes, key=f"theme_selector_{len(st.session_state.goals_data)}")
         user_goal = st.text_area("Input your goal here:", key=f"goal_input_{len(st.session_state.goals_data)}")
@@ -55,8 +60,3 @@ def theme_picker_flow():
             st.success("Goals added to your habit list!")
             st.session_state.goals_data = []  # Clear goals data after accepting
             st.experimental_set_query_params(reload=True)  # Refresh to reset flow
-
-    # Add another goal button
-    if st.session_state.goals_data:
-        if st.button("Add Another Goal"):
-            st.experimental_set_query_params(reload=True)  # Reload the form for adding another goal
