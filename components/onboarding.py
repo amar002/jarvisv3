@@ -13,7 +13,7 @@ def interactive_onboarding():
     # Generate dynamic questions using Gemini LLM
     if not st.session_state.dynamic_questions:
         prompt = (
-            "Generate 4 personalized onboarding questions for a habit-building platform. "
+            "Generate 2 personalized onboarding questions for a habit-building platform. "
             "The questions should help understand a user's goals, strengths, and challenges."
         )
         response = get_gpt_response(prompt)
@@ -26,7 +26,7 @@ def interactive_onboarding():
     if st.button("Generate My Goals"):
         st.session_state.retry = False
         prompt = (
-            f"Based on the following user responses, generate 3 personalized goals, explain why they are important, "
+            f"Based on the following user responses, generate 2 personalized goals, explain why they are important, "
             f"and provide a simple plan to achieve each:\n\n"
         )
         for idx, (key, response) in enumerate(st.session_state.user_responses.items(), 1):
