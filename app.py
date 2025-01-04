@@ -42,10 +42,10 @@ if menu == "Home":
     # Add a call-to-action button
     if st.button("Get Started"):
         st.session_state.user_choice = None  # Reset user choice
-        st.experimental_rerun()
+        st.session_state.current_page = "Onboarding"
 
 # Other Pages
-elif menu == "Onboarding":
+if st.session_state.get("current_page") == "Onboarding":
     interactive_onboarding()
 elif menu == "Theme Picker":
     theme_picker_flow()
