@@ -1,3 +1,5 @@
+import streamlit as st
+
 def interactive_onboarding():
     st.title("Welcome to HabitFlow!")
     st.subheader("Let’s learn more about you to suggest personalized goals and habits.")
