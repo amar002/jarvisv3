@@ -66,9 +66,13 @@ if page == "Home":
     # Call to Action
     if st.button("Get Started"):
         st.experimental_set_query_params(page="Onboarding")
+        st.experimental_rerun()
 
 elif page == "Onboarding":
     interactive_onboarding()
 
 elif page == "Dashboard":
     display_dashboard()
+
+else:
+    st.error("Page not found! Please use the navigation bar to access other pages.")
