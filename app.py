@@ -51,7 +51,7 @@ def render_top_nav():
 render_top_nav()
 
 # Determine the active page based on query parameters
-page = st.experimental_get_query_params().get("page", ["home"])[0]
+page = st.query_params.get("page", ["home"])[0]
 
 # Render the corresponding page
 if page == "home":
@@ -70,7 +70,7 @@ if page == "home":
     4. **Achieve More**: Stay motivated with progress tracking and completion rewards.
     """)
     if st.button("Get Started"):
-        st.experimental_set_query_params(page="onboarding")
+        st.query_params["page"] = "onboarding"
 elif page == "onboarding":
     interactive_onboarding()
 elif page == "dashboard":
