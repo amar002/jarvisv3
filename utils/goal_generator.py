@@ -12,3 +12,17 @@ def generate_improved_goals(theme, user_goal):
       3. [Step 3]
     """
     return get_gpt_response(prompt)
+
+def generate_actionable_steps(goal):
+    """
+    Use LLM to generate actionable steps for the given goal.
+    """
+    prompt = f"""
+    Break down the following goal into actionable steps that can be tracked for progress:
+    Goal: {goal}
+    
+    Provide the output as a list of steps.
+    """
+    response = get_gpt_response(prompt)
+    return response.split("\n")  # Split the response into steps
+
