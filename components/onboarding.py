@@ -1,6 +1,7 @@
 import streamlit as st
 from components.theme_picker import theme_picker_flow
 from components.question_flow import question_flow
+from utils.data_handler import save_habits, load_habits
 
 def interactive_onboarding():
     st.title("Welcome to HabitFlow!")
@@ -20,3 +21,7 @@ def interactive_onboarding():
         theme_picker_flow()
     elif st.session_state.get("user_choice") == "no":
         question_flow()
+
+    # Save data persistently after onboarding
+    if "habits_data" in st.session_state:
+        save_habits(st.session_state.habits_data)
