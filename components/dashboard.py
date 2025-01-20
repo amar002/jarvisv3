@@ -1,5 +1,7 @@
 import streamlit as st
 from utils.data_handler import load_habits
+from utils.data_handler import save_habits
+
 
 def display_dashboard():
     st.title("My Goals")
