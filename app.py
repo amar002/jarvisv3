@@ -31,7 +31,7 @@ if menu == "Home":
     # Call to Action
     if st.button("Get Started"):
         st.session_state.current_page = "Onboarding"
-        st.experimental_rerun()
+        
 
 # Onboarding
 elif menu == "Onboarding":
