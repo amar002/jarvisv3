@@ -1,22 +1,24 @@
 from utils.data_handler import load_habits
 
 def display_dashboard():
-    st.title("Habit Dashboard")
+    st.title("My Goals")
+
+    # Load habits
     habits = load_habits()
-    
+
     if not habits:
-        st.write("No habits to display. Start your journey by adding goals!")
+        st.write("No goals available. Start by creating goals in the onboarding flow!")
     else:
-        for i, habit in enumerate(habits):
-            col1, col2, col3 = st.columns([6, 2, 2])
+        for idx, habit in enumerate(habits):
+            col1, col2, col3 = st.columns([7, 2, 1])
             with col1:
-                st.write(f"📝 {habit['name']} - **{habit['status']}**")
+                st.write(f"**{habit['name']}** - Status: {habit['status']}")
             with col2:
-                if st.button("Mark as Done", key=f"done_{i}"):
-                    habit["status"] = "Completed"
+                if st.button("Mark as Done", key=f"done_{idx}"):
+                    habits[idx]["status"] = "Completed"
                     st.success(f"Marked '{habit['name']}' as done!")
             with col3:
-                if st.button("Remove", key=f"remove_{i}"):
-                    habits.pop(i)
-                    st.warning(f"Removed habit: {habit['name']}")
+                if st.button("Remove", key=f"remove_{idx}"):
+                    habits.pop(idx)
+                    st.warning(f"Removed '{habit['name']}'!")
         save_habits(habits)
