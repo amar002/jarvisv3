@@ -2,15 +2,25 @@ import streamlit as st
 from components.onboarding import interactive_onboarding
 from components.dashboard import display_dashboard
 
+# Initialize session state for navigation
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "Home"
+
 # Sidebar navigation menu
 st.sidebar.title("HabitFlow Navigation")
 menu = st.sidebar.radio(
     "Navigate to:",
-    ["Home", "Onboarding", "Dashboard"]
+    ["Home", "Onboarding", "Dashboard"],
+    index=["Home", "Onboarding", "Dashboard"].index(st.session_state.current_page),
+    key="menu_navigation",
 )
 
-# Home Page
-if menu == "Home":
+# Update current page in session state
+if menu != st.session_state.current_page:
+    st.session_state.current_page = menu
+
+# Render the selected page
+if st.session_state.current_page == "Home":
     st.title("Welcome to HabitFlow!")
     st.subheader("Your Personal Habit-Building Companion 🚀")
     
@@ -31,12 +41,9 @@ if menu == "Home":
     # Call to Action
     if st.button("Get Started"):
         st.session_state.current_page = "Onboarding"
-        
 
-# Onboarding
-elif menu == "Onboarding":
+elif st.session_state.current_page == "Onboarding":
     interactive_onboarding()
 
-# Dashboard
-elif menu == "Dashboard":
+elif st.session_state.current_page == "Dashboard":
     display_dashboard()
