@@ -1,24 +1,22 @@
-import streamlit as st
-from components.goal_completion import generate_appreciation_message
+from utils.data_handler import load_habits
 
 def display_dashboard():
-    st.write("### Habit Dashboard")
+    st.title("Habit Dashboard")
+    habits = load_habits()
     
-    for i, habit in enumerate(st.session_state.habits_data):
-        col1, col2, col3 = st.columns([4, 1, 1])
-
-        with col1:
-            st.write(f"📝 {habit['name']} - **{habit['status']}**")
-
-        with col2:
-            if st.button("Done", key=f"done_{i}"):
-                habit["status"] = "Completed"
-                message = generate_appreciation_message(habit["name"])
-                st.success(message)
-                st.experimental_rerun()
-
-        with col3:
-            if st.button("Remove", key=f"remove_{i}"):
-                st.session_state.habits_data.pop(i)
-                st.warning(f"Removed habit: {habit['name']}")
-                st.experimental_rerun()
+    if not habits:
+        st.write("No habits to display. Start your journey by adding goals!")
+    else:
+        for i, habit in enumerate(habits):
+            col1, col2, col3 = st.columns([6, 2, 2])
+            with col1:
+                st.write(f"📝 {habit['name']} - **{habit['status']}**")
+            with col2:
+                if st.button("Mark as Done", key=f"done_{i}"):
+                    habit["status"] = "Completed"
+                    st.success(f"Marked '{habit['name']}' as done!")
+            with col3:
+                if st.button("Remove", key=f"remove_{i}"):
+                    habits.pop(i)
+                    st.warning(f"Removed habit: {habit['name']}")
+        save_habits(habits)
