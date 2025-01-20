@@ -31,5 +31,5 @@ def interactive_onboarding():
         st.query_params["user_choice"] = st.session_state.user_choice
 
     # Debugging logs (optional)
-    st.write("Session state:", st.session_state)
-    st.write("Query params:", st.query_params)
+    #st.write("Session state:", st.session_state)
+    #st.write("Query params:", st.query_params)
