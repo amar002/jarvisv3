@@ -16,12 +16,10 @@ def interactive_onboarding():
         if st.button("No, Need help in figuring out what to do"):
             st.session_state.user_choice = "no"
 
-    # Route to appropriate flow
-    if st.session_state.get("user_choice") == "yes":
-        theme_picker_flow()
-    elif st.session_state.get("user_choice") == "no":
-        question_flow()
+   if st.session_state.get("user_choice") == "yes":
+    theme_picker_flow()
+elif st.session_state.get("user_choice") == "no":
+    question_flow()
 
-    # Save data persistently after onboarding
-    if "habits_data" in st.session_state:
-        save_habits(st.session_state.habits_data)
+# Navigation to reset or switch
+st.query_params["reload"] = "true"  # Updated for deprecation warning
