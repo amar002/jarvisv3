@@ -8,7 +8,8 @@ def load_habits():
     except FileNotFoundError:
         return []
 
-def save_habits(habits_data):
-    os.makedirs("data", exist_ok=True)
-    with open("data/habits_data.json", "w") as file:
-        json.dump(habits_data, file)
+
+def save_habits(habits, file_path="data/habits_data.json"):
+    with open(file_path, "w") as file:
+        json.dump(habits, file)
+
