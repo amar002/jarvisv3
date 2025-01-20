@@ -1,14 +1,14 @@
 import streamlit as st
 from components.theme_picker import theme_picker_flow
 from components.question_flow import question_flow
-from components.plan_builder import plan_builder
 from utils.data_handler import save_habits
+
 
 def interactive_onboarding():
     st.title("Welcome to HabitFlow!")
     st.subheader("Do you have clarity about your goals?")
 
-    # Display options for user choice
+    # User choice: Yes or No
     col1, col2 = st.columns(2)
     with col1:
         if st.button("Yes, I know what to do, show me how"):
@@ -24,19 +24,31 @@ def interactive_onboarding():
     elif user_choice == "no":
         question_flow()
 
-    # After accepting goals, invoke the Plan Builder
+    # Handle Goals After Generation
     if "goals_data" in st.session_state and st.session_state.goals_data:
-        st.subheader("Finalize Your Goals")
-        for idx, goal_data in enumerate(st.session_state.goals_data):
-            st.write(f"**Goal {idx+1}:** {goal_data['improved_goal']}")
-        if st.button("Generate Plans for Goals"):
-            for goal_data in st.session_state.goals_data:
-                plan_builder(goal_data["improved_goal"])  # Generate and display plans for each goal
-            st.session_state.goals_data = []  # Clear goals after generating plans
+        st.subheader("Review Your Goals")
 
-    # Save data persistently after onboarding
-    if "habits_data" in st.session_state:
-        save_habits(st.session_state.habits_data)
+        # Show a brief outline of goals
+        for idx, goal_data in enumerate(st.session_state.goals_data):
+            st.write(f"**Goal {idx+1}:** {goal_data['improved_goal'] or goal_data['goal']}")
+
+        # Accept goals to finalize them
+        if st.button("Accept My Goals"):
+            # Save the finalized goals to habits_data for dashboard display
+            if "habits_data" not in st.session_state:
+                st.session_state.habits_data = []
+            for goal_data in st.session_state.goals_data:
+                st.session_state.habits_data.append(
+                    {"name": goal_data["improved_goal"] or goal_data["goal"], "status": "Pending"}
+                )
+
+            # Save persistently and clear goals_data
+            save_habits(st.session_state.habits_data)
+            st.session_state.goals_data = []  # Clear goals data after saving
+
+            # Navigate to dashboard
+            st.success("Your goals have been saved! You can find them under 'My Goals' on the Dashboard.")
+            st.session_state.current_page = "Dashboard"
 
     # Debugging logs (optional)
     #st.write("Session state:", st.session_state)
