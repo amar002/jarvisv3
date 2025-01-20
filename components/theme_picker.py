@@ -59,4 +59,4 @@ def theme_picker_flow():
                 st.session_state.habits_data.append({"name": goal_data["improved_goal"], "status": "Pending"})
             st.success("Goals added to your habit list!")
             st.session_state.goals_data = []  # Clear goals data after accepting
-             st.query_params["reload"] = "true"  # Refresh to reset flow
+            st.query_params["reload"] = "true"  # Refresh to reset flow
