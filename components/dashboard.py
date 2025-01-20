@@ -1,3 +1,4 @@
+import streamlit as st
 from utils.data_handler import load_habits
 
 def display_dashboard():
